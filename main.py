@@ -1,4 +1,4 @@
-from .gui import App
+from gui import App
 
 
 def create_app():
@@ -6,6 +6,6 @@ def create_app():
 
     return app
 
-
-myapp = create_app()
-myapp.mainloop()
+if __name__ == '__main__':
+    myapp = create_app()
+    myapp.mainloop()
