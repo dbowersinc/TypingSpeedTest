@@ -2,15 +2,6 @@ import random
 import tkinter as tk
 from tkinter import ttk
 
-# How to create a big label box that has a number of words?
-# Use the word file and select a 10 random words to set a string.
-# as the person is typing move the cursor to match the current word.
-# If there is three lines of text in the label box when it gets to the end of the third line
-# take the last line and add it to however many words are short in the required
-# set to create the string.
-# for n in range(0, 12):
-#     string = string + random.choice(words)
-
 
 class UserInterface:
     def __init__(self, word_set):
@@ -76,7 +67,7 @@ class UserInterface:
         self.current_word = self.displayed_words[index]
 
     def display_results(self):
-        self.entry_label['state'] = 'disabled'
+        self.entry_label.config(state='disabled', width=0)
         word_count = len(self.correct_words)
         incorrect = len(self.incorrect_words)
         results = f'You typed {word_count} words per minute.\n' \
@@ -110,9 +101,11 @@ class UserInterface:
             self.update_timer()
         if event.keysym == 'space':
             if self.typed_chars == self.current_word:
+                print(self.typed_chars)
                 self.correct_words.append(self.current_word)
             else:
                 self.incorrect_words.append((self.current_word, self.typed_chars))
+
             if self.word_index <= 5:
                 self.word_index += 1
             else:
@@ -121,14 +114,12 @@ class UserInterface:
             # advance display_chars
             # advance total char count
             self.total_chars += 1
+            self.typed_chars = ''
             self.next_word()
         else:
             # decorate the character typed on the display screen
+            self.typed_chars = self.typed_chars + event.keysym
             self.total_chars += 1
 
-        # self.words.set(event.keysym)
-        # provision for backspace or return.a
-        # have a current word, an entered character, and a current character.
-        # if the entered character matches the current character turn that character green.
 
 

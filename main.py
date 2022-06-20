@@ -3,6 +3,7 @@ import random
 from user_interface import UserInterface
 import json
 
+
 def create_app():
     """
     Configure a UserInterface with data and return app.
