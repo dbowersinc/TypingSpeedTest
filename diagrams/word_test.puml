@@ -1,0 +1,65 @@
+@startuml
+'https://plantuml.com/activity-diagram-beta
+'key_handler() - handle key action
+start
+:key_handler(event)\n <key>;
+:if seconds == 60,\nstart the timer\nupdate_timer();
+if (event.keysym == 'space') then (True)
+   if (typed_word == current_word) then (True)
+        :Add current_word to the complete list;
+   else (False)
+        :Add (current_word, typed_word) to incorrect list;
+   endif
+
+  :The word is complete,\nnext_word();
+else
+
+endif
+
+if (do redirect?) then (yes)
+  :redirect process;
+else
+  if (do forward?) then (yes)
+    :Forward request;
+  else (no)
+    :Render page template;
+  endif
+endif
+
+stop
+
+@enduml
+
+@startuml
+'next_word()
+start
+:next_word();
+note right
+    A word was completed so update
+    the list, update the string that
+    is presented, and format any words
+    that have been completed.
+    Load a current word to test the
+    next characters against. Reset
+    the current character counter.
+end note
+if (word_index <= 5) then (true)
+    :word_index += 1;
+else (false)
+    :update_displayed();
+endif
+:increment display_chars index;
+note right
+    How many characters from
+    the left to turn green as typed
+    to keep focus on the current
+    word.
+end note
+:update_words();
+note left
+    This should take care of formatting
+    any typed words, for each in shown_index
+    decorate character in updated_words.
+end note
+:current_word = displayed_words[word_index];
+@enduml
